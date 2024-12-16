@@ -307,3 +307,12 @@ button:active:not(:disabled) {
 .read-the-docs {
   color: #888;
 }
+
+.selected-message {
+  color: var(--primary-color);
+  background-color: rgba(100, 108, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  animation: fadeIn 0.3s ease-in;
+}

@@ -8,6 +8,7 @@ function App() {
   const [copyStatus, setCopyStatus] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
   const [generationCount, setGenerationCount] = useState(0)
+  const [selectedMessage, setSelectedMessage] = useState('')
 
   const bitSizes = useMemo(() => [
     { value: 32, label: '32-bit', bytes: 4 },
@@ -54,6 +55,7 @@ function App() {
   const handleGenerate = useCallback(async () => {
     setIsGenerating(true)
     setError('')
+    setSelectedMessage('')
     try {
       const newHex = await generateHex(bitSize)
       setHexCode(newHex)
@@ -81,12 +83,11 @@ function App() {
     if (newSize && bitSizes.some(size => size.value === newSize)) {
       setBitSize(newSize)
       setError('')
-      setIsGenerating(true)
-      setTimeout(() => handleGenerate(), 100)
+      setSelectedMessage(`${newSize}-bit selected. Click Generate to create hex code.`)
     } else {
       setError('Invalid bit size selected')
     }
-  }, [bitSizes, handleGenerate])
+  }, [bitSizes])
 
   const handleKeyPress = useCallback((e) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -115,7 +116,7 @@ function App() {
         
         <button 
           onClick={handleGenerate}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyPress}
           aria-label="Generate new hex code"
           className={`generate-button ${isGenerating ? 'generating' : ''}`}
           disabled={isGenerating}
@@ -123,6 +124,12 @@ function App() {
           {isGenerating ? 'Generating...' : 'Generate Hex Code'}
         </button>
       </div>
+
+      {selectedMessage && (
+        <div className="selected-message">
+          {selectedMessage}
+        </div>
+      )}
 
       {error && (
         <div className="error" role="alert">
