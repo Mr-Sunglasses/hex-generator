@@ -1,0 +1,309 @@
+:root {
+  --primary-color: #646cff;
+  --primary-hover: #535bf2;
+  --error-color: #ff4646;
+  --success-color: #00c853;
+  --background-dark: #1a1a1a;
+  --text-color: #ffffff;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  animation: slideDown 0.5s ease-out;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--primary-color);
+  opacity: 0.8;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  animation: slideUp 0.5s ease-out;
+}
+
+select, button {
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+}
+
+.select-size {
+  background-color: var(--background-dark);
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.select-size:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.generate-button {
+  min-width: 180px;
+}
+
+.generating {
+  background-color: var(--background-dark);
+  cursor: wait;
+  animation: pulse 1.5s infinite;
+}
+
+.result {
+  background-color: var(--background-dark);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.hex-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.hex-code {
+  font-family: 'Fira Code', monospace;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  background-color: rgba(100, 108, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  user-select: all;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 1px;
+}
+
+.hex-code:hover {
+  background-color: rgba(100, 108, 255, 0.15);
+  transform: scale(1.01);
+}
+
+.copy-button {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  min-width: 100px;
+}
+
+.copy-button.success {
+  background-color: var(--success-color);
+}
+
+.copy-button.error {
+  background-color: var(--error-color);
+}
+
+.error {
+  color: var(--error-color);
+  background-color: rgba(255, 70, 70, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+.generation-count {
+  color: var(--primary-color);
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translateX(-1px);
+  }
+  20%, 80% {
+    transform: translateX(2px);
+  }
+  30%, 50%, 70% {
+    transform: translateX(-4px);
+  }
+  40%, 60% {
+    transform: translateX(4px);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  select, button {
+    width: 100%;
+  }
+
+  .hex-display {
+    flex-direction: column;
+  }
+
+  .copy-button {
+    width: auto;
+  }
+
+  .info {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
